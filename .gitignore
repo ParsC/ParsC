@@ -16,6 +16,10 @@
 *.dylib
 *.dll
 
+# Visual C++ catch files
+.vs/
+ipch/
+
 # Fortran module files
 *.mod
 *.smod
