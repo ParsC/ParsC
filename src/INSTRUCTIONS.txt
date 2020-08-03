@@ -1,0 +1,192 @@
+========================================
+Guide to ParsC
+========================================
+
+Thank you for choosing ParsC, a lightweight INI (.ini) file parser for C/C++!
+
+This is a set of instructions on how to integrate ParsC into your C++ programs.
+In here, there are examples of INI configuration files, and INF setup information
+(.inf) files, as ParsC can also parse those files into C++ code as well. With
+that there are examples of what to do when you integrate an INI file into C/C++
+code for your coding projects.
+
+First off, you will, of course, need to make an INI configuration settings file.
+
+
+-----------------------------------
+
+Before we get to the full INI file contents, there are a few elements in INI and
+INF files that you will need to add to your file(s). These include keys, sections,
+names, values, delimiters, and comments. Examples of each of these INI file
+elements are provided below.
+
+--------------------
+Keys/Properties
+--------------------
+
+In INI files, a key, also called a property, is the most basic element contained
+in such files. Keys consist of names and values, with delimiters in between the
+two elements. Keys/properties are typically not case sensitive.
+
+Examples:
+
+Name=Value
+or
+Name="Value"
+
+--------------------
+Sections
+--------------------
+
+A section is the main part of an INI file which holds a specific set of keys and
+values in the file. INI sections have square brackets ([ ]) which enclose the
+words included within that section. INI and INF sections do not have explicit
+"end of section" delimiters, and may not be nested. Sections are optional in INI
+and INF files, so you do not need to have them in your file, but they are useful
+for grouping certain contents in INI files, so I would add them if I were you.
+
+Example:
+
+[Work Employees]
+
+--------------------
+Names
+--------------------
+
+A name is the part of an INI file which comes before the value, which we will talk
+about next. Anyway, the name addresses what a set of text is, and indicates what
+it does. In INI and INF files, a name must not be enclosed in any way. Characters
+such as equals signs and semicolons are reserved, so you should not include them
+in a name.
+
+Names can have periods between two words, in which the leading word in that name
+would be the main indicator of that property, and the following word would indicate
+the specific name for that one property. Example: Names.Name1=Value
+
+--------------------
+Values
+--------------------
+
+A value is the part of an INI file which comes after the name. The value consists
+of a set of text that is controlled by the leading name. Unlike names, values can
+include any type of characters, including equals signs and semicolons, as they
+do not play an explicit role in INI and INF files. Values can, at your preference,
+be enclosed with quotation marks (""). The '%s' character is a place holder, so if
+you add that in a value, do not translate it directly!
+
+--------------------
+Delimiters
+--------------------
+
+In INI and INF files, the delimiter is the most important part of these files.
+The delimiter is another name for the equals sign (=). This character appears
+between the name on the left and the value on the right.
+
+--------------------
+Comments
+--------------------
+
+A comment is a common element in INI and INF files. It gives text that typically
+explains what a certain key/property does. Just like in all programming languages,
+comment lines in INI and INF files are ignored. Comments in these files begin
+with either a number sign (#) or semicolon (;).
+
+Examples:
+
+# This is a comment
+or
+; This is a comment
+
+--------------------
+Escape Characters
+--------------------
+
+Another thing you should pay attention to in both INI and INF files is a list of
+common escape characters. Escape characters always begin with a backslash (\).
+
+Common escape characters:
+
+Single backslash (escaping the escape character): \\
+Null character: \0
+Bell/alert/audible: \a
+Backspace: \b
+Tab character: \t
+Carriage return: \r
+Line feed: \n
+Apostrophe: \'
+Double quotes: \"
+Colon: \:
+Semicolon: \;
+Equals sign: \=
+Number sign: \#
+
+-----------------------------------
+
+Now that we have covered the most common elements of an INI or INF file, we can
+now provide some steps on how to make an INI file, with examples, as well as
+instructions on how to integrate an INI or INF file into C/C++ code using ParsC,
+again, with examples.
+
+This is an example of a simple INI file, with keys, sections, names, values,
+delimiters, and comments:
+
+----------
+
+# This is a file containing info about our employees
+
+[Work Employees]
+Employee.Employee1=Josh Wallace
+Employee.Employee2=Hayley Judge
+Employee.Employee3=Matt Crawford
+
+----------
+
+Here is another example of an INI file, same as above, but with alternate ways
+of providing certain elements:
+
+----------
+
+; This is a file containing info about our employees
+
+[Work Employees]
+Employee.Employee1="Josh Wallace"
+Employee.Employee2="Hayley Judge"
+Employee.Employee3="Matt Crawford"
+
+-----------------------------------
+
+So now we have our INI file created. Now let's learn how to integrate the contents
+of this file into our C++ code.
+
+The following sample code shows a method on how to implement the special parts
+of our INI file, including the sections and the names:
+
+TCHAR Employees::getEmployeeName(const char* employeeName) const {
+    if (!_employee)
+        return TEXT("");
+
+    ParsCSection* employee = reinterpret_cast<ParsCSection*>(_employee->sectionName("Work Employees"));
+
+    if (!employee)
+        return TEXT("");
+
+    employee = employee->name("Employee");
+
+    if (!employee)
+        return TEXT("");
+}
+
+But first, however, you will need to create a C++ header (.h) file for this source
+file, like this example below:
+
+class Employees {
+public:
+    TCHAR getEmployeeName(const char* employeeName) const;
+private:
+    ParsCConfig* _employee;
+};
+
+-----------------------------------
+
+So there you have it! Hopefully that was a comprehensive guide on how to use
+ParsC effectively, for parsing INI or INF files into C or C++ code.
