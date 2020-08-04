@@ -75,9 +75,6 @@ public:
 		return _sectionName;
 	}
 	const ParsCSection* sectionName(const char* value) const;
-	ParsCSection* sectionName(const char* value) {
-		return const_cast<ParsCSection*>((const_cast<const ParsCSection*>(this))->sectionName(value));
-	}
 	const char* name(const char* n) const;
 	const char* name(const char* n, int* i) const;
 	const char* name(const char* n, double* d) const;
