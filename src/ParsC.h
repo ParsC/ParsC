@@ -163,7 +163,7 @@ public:
 	}
 private:
 	ParsCConfig(const ParsCConfig&);
-	void operator=(const ParsCConfig& config);
+	void operator=(const ParsCConfig& base);
 protected:
 	ParsCConfig(ConfigType type);
 	void copyTo(ParsCConfig* target) const;
