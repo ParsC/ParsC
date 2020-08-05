@@ -12,7 +12,6 @@ code for your coding projects.
 
 First off, you will, of course, need to make an INI configuration settings file.
 
-
 -----------------------------------
 
 Before we get to the full INI file contents, there are a few elements in INI and
