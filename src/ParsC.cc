@@ -81,12 +81,6 @@ void ParsCConfig::clear() {
 	_sectionName = 0;
 }
 
-void ParsCConfig::operator=(const ParsCConfig& base) {
-	clear();
-	base.copyTo(this);
-	return *this;
-}
-
 void ParsCConfig::copyTo(ParsCConfig* target) const {
 	target->setValue(_value.c_str());
 	target->_userData = _userData;
