@@ -37,14 +37,14 @@
 #include "parscParser.h"
 #endif
 
-#ifndef INCLUDE_IOSTREAM
-#include <iostream>
-#define INCLUDE_IOSTREAM
-#endif
-
 #ifndef INCLUDE_STRING
 #include <string>
 #define INCLUDE_STRING
+#endif
+
+#ifndef INCLUDE_IOSTREAM
+#include <iostream>
+#define INCLUDE_IOSTREAM
 #endif
 
 #ifdef _MSC_VER
