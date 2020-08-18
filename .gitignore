@@ -19,6 +19,7 @@
 # Visual C++ catch files
 .vs/
 ipch/
+.suo
 
 # Fortran module files
 *.mod
