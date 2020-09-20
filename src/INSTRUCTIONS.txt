@@ -10,7 +10,6 @@ In here, there are examples of INI configuration files, and INF setup informatio
 that there are examples of what to do when you integrate an INI file into C/C++
 code for your coding projects.
 
-
 First off, you will, of course, need to make an INI configuration settings file.
 
 -----------------------------------
