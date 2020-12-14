@@ -142,7 +142,7 @@ public:
 	ParsCConfig();
 	~ParsCConfig();
 	void clear();
-	void setValue(const char* value) {
+	ParsCKeyValue* setValue(const char* value) {
 		_value = value;
 	}
 	ParsCConfig* parent() {
