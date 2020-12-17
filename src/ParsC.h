@@ -142,8 +142,11 @@ public:
 	ParsCConfig();
 	~ParsCConfig();
 	void clear();
-	ParsCKeyValue* setValue(const char* value) {
+	ParsCKeyValue* setValue(std::string value) {
 		_value = value;
+	}
+	std::string getValue() const {
+		return _value;
 	}
 	ParsCConfig* parent() {
 		return _parent;
