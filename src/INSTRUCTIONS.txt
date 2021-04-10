@@ -152,6 +152,9 @@ Employee.Employee1="Josh Wallace"
 Employee.Employee2="Hayley Judge"
 Employee.Employee3="Matt Crawford"
 
+Of course, you can also write INI file contents with unquoted values and number
+signs for comments, and vice versa, as well.
+
 -----------------------------------
 
 So now we have our INI file created. Now let's learn how to integrate the contents
