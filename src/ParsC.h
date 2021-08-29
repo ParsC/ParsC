@@ -142,7 +142,7 @@ public:
 	ParsCConfig();
 	~ParsCConfig();
 	void clear();
-	void setValue(std::string value) {
+	setValue(std::string value) {
 		_value = value;
 	}
 	std::string getValue() const {
