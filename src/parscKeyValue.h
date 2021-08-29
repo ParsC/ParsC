@@ -55,13 +55,13 @@ public:
 	// Construct a key/property with both a name and a value
 	ParsCKeyValue(const char* name, const char* value);
 	virtual ~ParsCKeyValue();
-	ParsCKeyValue* setName(const char* name) {
+	void setName(const char* name) {
 		_name = name;
 	}
 	const char* getName() const {
 		return _name.c_str();
 	}
-	ParsCKeyValue* setValue(const char* value) {
+	void setValue(const char* value) {
 		_value = value;
 	}
 	const char* getValue() const {
