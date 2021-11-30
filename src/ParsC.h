@@ -32,20 +32,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <ctype.h>
-
-#ifndef PARSCPARSER_H
-#include "parscParser.h"
-#endif
-
-#ifndef INCLUDE_STRING
-#include <string>
-#define INCLUDE_STRING
-#endif
-
-#ifndef INCLUDE_IOSTREAM
 #include <iostream>
-#define INCLUDE_IOSTREAM
-#endif
+#include "parscParser.h"
 
 #ifdef _MSC_VER
 #pragma warning(push)
