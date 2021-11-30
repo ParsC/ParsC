@@ -24,22 +24,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "ParsC.h"
-
-#ifndef INCLUDE_IOSTREAM
 #include <iostream>
-#define INCLUDE_IOSTREAM
-#endif
-
-#ifndef INCLUDE_CSTDLIB
 #include <cstdlib>
-#define INCLUDE_CSTDLIB
-#endif
-
-#ifndef INCLUDE_CSTDIO
 #include <cstdio>
-#define INCLUDE_CSTDIO
-#endif
+#include "ParsC.h"
 
 bool ParsCBase::_condensedWhiteSpace = true;
 
