@@ -27,15 +27,8 @@
 #ifndef PARSCPARSER_H
 #define PARSCPARSER_H
 
-#ifndef INCLUDE_STRING
 #include <string>
-#define INCLUDE_STRING
-#endif
-
-#ifndef INCLUDE_IOSTREAM
 #include <iostream>
-#define INCLUDE_IOSTREAM
-#endif
 
 /*
   ParsCParser
