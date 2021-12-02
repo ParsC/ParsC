@@ -24,13 +24,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "parscParser.h"
+#include "parsCParser.h"
 
 ParsCParser::ParsCParser() {
-	_error = "";
-	_errorCode = "";
 	_commentCharacter = "#";
 	_delimiter = "=";
+	_error = "";
+	_errorCode = "";
 }
 
 ParsCParser::~ParsCParser() {}
@@ -39,19 +39,19 @@ void ParsCParser::setCommentCharacter(char c) {
 	_commentCharacter = c;
 }
 
-void ParsCParser::setDelimiter(char c) {
-	_delimiter = c;
-}
-
-const char* ParsCParser::getErrorCode() const {
-	return _errorCode.c_str();
+void ParsCParser::setDelimiter(char d) {
+	_delimiter = d;
 }
 
 const char* ParsCParser::getError() const {
 	return _error.c_str();
 }
 
-const char* ParsCParser::setError(const char* code, const char* message) {
+const char* ParsCParser::getErrorCode() const {
+	return _errorCode.c_str();
+}
+
+void ParsCParser::setError(const char* code, const char* message) {
 	_errorCode = code ? code : "";
 	_error = message ? message : "";
 }
