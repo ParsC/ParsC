@@ -27,22 +27,10 @@
 #ifndef PARSCCONFIGFILE_H
 #define PARSCCONFIGFILE_H
 
-#include "ParsC.h"
-
-#ifndef INCLUDE_STRING
 #include <string>
-#define INCLUDE_STRING
-#endif
-
-#ifndef INCLUDE_VECTOR
 #include <vector>
-#define INCLUDE_VECTOR
-#endif
-
-#ifndef INCLUDE_MAP
 #include <map>
-#define INCLUDE_MAP
-#endif
+#include "ParsC.h"
 
 /*
   ParsCConfigFile
@@ -60,9 +48,8 @@ public:
 	ParsCConfigFile(const ParsCConfigFile& copy);
 	bool loadFile(const char* fileName);
 	bool saveFile(const char* fileName) const;
-	bool loadFile(FILE*);
-	bool saveFile(FILE*) const;
-	virtual const char* parse(const char* p, ParsCData* data = 0);
+	bool loadFile(FILE* file);
+	bool saveFile(FILE* file) const;
 	void print() const {
 		print(stdout, 0);
 	}
