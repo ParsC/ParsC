@@ -24,21 +24,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <iostream>
-#include <cstdlib>
-#include <cstdio>
 #include "ParsC.h"
 
-bool ParsCBase::_condensedWhiteSpace = true;
-
-/*
-  ParsCConfig
-*/
+bool ParsCConfig::_condensedWhiteSpace = true;
 
 ParsCConfig::ParsCConfig() {}
 
-ParsCConfig::ParsCConfig(ConfigType type) : ParsCBase() {
-	_parent = 0;
+ParsCConfig::ParsCConfig(ConfigType type) {
 	_type = type;
 	_sectionName = 0;
 	_previous = 0;
@@ -70,6 +62,6 @@ void ParsCConfig::clear() {
 }
 
 void ParsCConfig::copyTo(ParsCConfig* target) const {
-	target->setValue(_value.c_str());
+	target->setValue(_value);
 	target->_userData = _userData;
 }
