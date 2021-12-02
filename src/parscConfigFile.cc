@@ -25,10 +25,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "parscConfigFile.h"
-
-#ifndef PARSCSECTION_H
 #include "parscSection.h"
-#endif
 
 ParsCConfigFile::ParsCConfigFile() : ParsCConfig(ParsCConfig::PARSC_CONFIG_FILE) {}
 
@@ -56,33 +53,6 @@ bool ParsCConfigFile::loadFile(const char* fileName) {
 	}
 }
 
-bool ParsCConfigFile::loadFile(FILE* file) {
-	if (!file) {
-		return false;
-	}
-
-	// TODO: Delete any existing data
-	clear();
-
-	// Get file size
-	long length = 0;
-	fseek(file, 0, SEEK_END);
-	length = ftell(file);
-	fseek(file, 0, SEEK_SET);
-
-	if (length <= 0) {
-		return false;
-	}
-
-	char* buffer = new char[length + 1];
-	buffer[0] = 0;
-
-	if (fread(buffer, length, 1, file) != 1) {
-		delete[] buffer;
-		return false;
-	}
-}
-
 bool ParsCConfigFile::saveFile(const char* fileName) const {
 	FILE* file;
 
@@ -95,9 +65,43 @@ bool ParsCConfigFile::saveFile(const char* fileName) const {
 	return false;
 }
 
+bool ParsCConfigFile::loadFile(FILE* file) {
+	if (!file)
+		return false;
+
+	// TODO: Delete any existing data
+	clear();
+
+	// Get file size
+	long length = 0;
+	fseek(file, 0, SEEK_END);
+	length = ftell(file);
+	fseek(file, 0, SEEK_SET);
+
+	if (length <= 0)
+		return false;
+
+	char* buffer = new char[length + 1];
+	buffer[0] = 0;
+
+	if (fread(buffer, length, 1, file) != 1) {
+		delete[] buffer;
+		return false;
+	}
+}
+
 bool ParsCConfigFile::saveFile(FILE* file) const {
 	print(file, 0);
 	return (ferror(file) == 0);
+}
+
+void ParsCConfigFile::print(FILE* file, int depth) const {
+	assert(file);
+
+	for (const ParsCConfig* config = sectionName(); config) {
+		config->print(file, depth);
+		fprintf(file, "\n");
+	}
 }
 
 void ParsCConfigFile::copyTo(ParsCConfigFile* target) const {
@@ -112,13 +116,4 @@ ParsCConfig* ParsCConfigFile::clone() const {
 
 	copyTo(c);
 	return c;
-}
-
-void ParsCConfigFile::print(FILE* file, int depth) const {
-	assert(file);
-
-	for (const ParsCConfig* config = sectionName(); config) {
-		config->print(file, depth);
-		fprintf(file, "\n");
-	}
 }
