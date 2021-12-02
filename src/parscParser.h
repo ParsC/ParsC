@@ -43,7 +43,7 @@ public:
 	ParsCParser();
 	virtual ~ParsCParser();
 	void setCommentCharacter(char c);
-	void setDelimiter(char c);
+	void setDelimiter(char d);
 	const char* getError() const;
 	const char* getErrorCode() const;
 protected:
