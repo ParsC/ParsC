@@ -24,33 +24,47 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "parscKeyValue.h"
-
-#ifndef INCLUDE_CSTDIO
 #include <cstdio>
-#define INCLUDE_CSTDIO
-#endif
+#include "ParsCKeyValue.h"
+
+ParsCKeyValue::ParsCKeyValue() {
+	_name = "";
+	_value = "";
+}
 
 ParsCKeyValue::ParsCKeyValue(const char* name, const char* value) {
 	if (name) {
-		ParsCConfig(ParsCConfig::PARSC_KEY);
+		ParsCConfig(ParsCConfig::PARSC_NAME);
 	}
 
 	if (value) {
 		ParsCConfig(ParsCConfig::PARSC_VALUE);
 	}
 
-	_name = name;
-	_value = value;
-	_configFile = 0;
+	_name = name ? name : "";
+	_value = value ? value : "";
 	_previous = _next = 0;
 }
 
-ParsCKeyValue::~ParsCKeyValue() {
-	clearThis();
+ParsCKeyValue::~ParsCKeyValue() {}
+
+void ParsCKeyValue::setName(const char* name) {
+	_name = name;
 }
 
-void ParsCKeyValue::print(FILE* file, int depth, std::string* str) const {
+const char* ParsCKeyValue::getName() const {
+	return _name;
+}
+
+void ParsCKeyValue::setValue(const char* value) {
+	_value = value;
+}
+
+const char* ParsCKeyValue::getName() const {
+	return _value;
+}
+
+void ParsCKeyValue::print(FILE* file, int depth, std::string str) const {
 	std::string name, value;
 
 	if (_value.find('\"') == std::string::npos) {
@@ -62,19 +76,9 @@ void ParsCKeyValue::print(FILE* file, int depth, std::string* str) const {
 			(*str) += name;
 			(*str) += "=\"";
 			(*str) += value;
-			(*str) += "\""
+			(*str) += "\"";
 		}
 	}
-}
-
-void ParsCKeyValue::operator=(const ParsCKeyValue& base) {
-	clearThis();
-	base.copyTo(this);
-	return *this;
-}
-
-void ParsCKeyValue::clearThis() {
-	clear();
 }
 
 void ParsCKeyValue::copyTo(ParsCSection* target) const {
