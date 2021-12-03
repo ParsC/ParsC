@@ -27,27 +27,11 @@
 #ifndef PARSCSECTION_H
 #define PARSCSECTION_H
 
-#include "ParsC.h"
-
-#ifndef INCLUDE_STRING
 #include <string>
-#define INCLUDE_STRING
-#endif
-
-#ifndef INCLUDE_VECTOR
 #include <vector>
-#define INCLUDE_VECTOR
-#endif
-
-#ifndef INCLUDE_MAP
 #include <map>
-#define INCLUDE_MAP
-#endif
-
-#ifndef INCLUDE_IOSTREAM
 #include <iostream>
-#define INCLUDE_IOSTREAM
-#endif
+#include "ParsC.h"
 
 /*
   ParsCSection
@@ -60,44 +44,33 @@ class ParsCSection : public ParsCConfig {
 	friend class ParsCKeyValue;
 public:
 	// Construct a section
-	ParsCSection(const char* value);
+	ParsCSection(const char* sectionName);
 	virtual ~ParsCSection();
-	ParsCSection(const ParsCSection&);
-	ParsCSection& operator=(const ParsCSection& base);
-	const char* name(const char* n) const;
-	const char* name(const char* n, int* i) const;
-	const char* name(const char* n, double* d) const;
-	const char* getText() const;
-	virtual ParsCConfig* clone() const;
-	virtual const char* parse(const char* p, ParsCData* data);
+	void setSectionName(const char* sectionName);
+	const char* getSectionName() const;
 	virtual void print(FILE* file, int depth) const {
 		print(file, depth, 0);
 	}
-	void print(FILE* file, int depth, std::string* str) const;
+	void print(FILE* file, int depth, std::string str) const;
+	virtual ParsCConfig* clone() const;
 protected:
-	void clearThis();
 	void copyTo(ParsCSection* target) const;
-	const char* readValue(const char* in, ParsCData* previousData);
+	const char* _sectionName;
 };
 
 /*
   ParsCSectionComment
 
-  Indicates a comment in the INI file, either within any section in the current file,
-  or anywhere else in the file.
+  Indicates a comment within any section in the current INI file.
 */
 class ParsCSectionComment : public ParsCConfig {
 public:
-	// Construct an empty comment
-	ParsCSectionComment();
-	// Construct a comment from text
-	ParsCSectionComment(const char* value);
-	ParsCSectionComment(const ParsCSectionComment&);
-	ParsCSectionComment& operator=(const ParsCSectionComment& base);
+	ParsCSectionComment(const char* sectionComment);
 	virtual ~ParsCSectionComment();
-	virtual ParsCConfig* clone() const;
-	virtual void print(FILE* file, int depth = 0) const;
+	void setSectionComment(const char* sectionComment);
+	const char* getSectionComment() const;
 protected:
 	void copyTo(ParsCSectionComment* target) const;
+	const char* _sectionComment;
 };
 #endif
