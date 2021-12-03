@@ -27,76 +27,41 @@
 #ifndef PARSCKEYVALUE_H
 #define PARSCKEYVALUE_H
 
-#include "ParsC.h"
-
-#ifndef INCLUDE_STRING
 #include <string>
-#define INCLUDE_STRING
-#endif
-
-#ifndef INCLUDE_IOSTREAM
 #include <iostream>
-#define INCLUDE_IOSTREAM
-#endif
+#include "ParsC.h"
 
 /*
   ParsCKeyValue
 
   Indicates both names and values within any current INI configuration file, included
-  within what is called a key or property. A name is the character which appears before
-  the equals sign (delimiter), and the value follows. You can also add quotation marks
-  to any value if need be.
+  in what is called a key or property. A name is a character which appears before the
+  equals sign (delimiter), and the value follows. You can add quotation marks to any
+  value if need be.
 
-  Examples: Name=Value, or Name="Value"
+  Examples: Name=Value or Name="Value"
 */
 class ParsCKeyValue : public ParsCConfig {
 	friend class ParsCSection;
 public:
-	// Construct a key/property with both a name and a value
+	// Construct a name or value
+	ParsCKeyValue();
 	ParsCKeyValue(const char* name, const char* value);
 	virtual ~ParsCKeyValue();
-	void setName(const char* name) {
-		_name = name;
-	}
-	const char* getName() const {
-		return _name.c_str();
-	}
-	void setValue(const char* value) {
-		_value = value;
-	}
-	const char* getValue() const {
-		return _value.c_str();
-	}
-	// For sections associated with certain names, and/or values
-	ParsCSection* sectionName() {
-		return _sectionName;
-	}
-	const ParsCSection* sectionName() const {
-		return _sectionName;
-	}
-	const ParsCSection* sectionName(const char* value) const;
-	const char* name(const char* n) const;
-	const char* name(const char* n, int* i) const;
-	const char* name(const char* n, double* d) const;
-	virtual const char* parse(const char* p, ParsCData* data);
+	void setName(const char* name);
+	const char* getName() const;
+	void setValue(const char* value);
+	const char* getValue() const;
 	virtual void print(FILE* file, int depth) const {
 		print(file, depth, 0);
 	}
-	void print(FILE* file, int depth, std::string* str) const;
-	void setConfigFile(ParsCConfigFile* configFile) {
-		_configFile = configFile;
-	}
+	void print(FILE* file, int depth, std::string str) const;
 private:
-	ParsCKeyValue(const ParsCKeyValue&);
-	void operator=(const ParsCKeyValue& base);
-	std::string _name;
-	std::string _value;
-	ParsCConfigFile* _configFile;
-	ParsCSection* _sectionName;
+	const char* _name;
+	const char* _value;
 	ParsCKeyValue* _previous;
 	ParsCKeyValue* _next;
 protected:
-	void clearThis();
 	void copyTo(ParsCSection* target) const;
 };
 #endif
