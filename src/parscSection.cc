@@ -26,81 +26,31 @@
 
 #include "parscSection.h"
 
-#ifndef PARSCKEYVALUE_H
-#include "parscKeyValue.h"
-#endif
-
-#ifndef PARSCWHITESPACE_H
-#include "parscWhiteSpace.h"
-#endif
-
- /*
-   ParsCSection
- */
-
-ParsCSection::ParsCSection(const char* value) : ParsCConfig(ParsCConfig::PARSC_SECTION) {}
-
-ParsCSection::~ParsCSection() {
-	clearThis();
+ParsCSection::ParsCSection(const char* sectionName) : ParsCConfig(ParsCConfig::PARSC_SECTION) {
+	_sectionName = sectionName ? sectionName : "";
 }
 
-ParsCSection::ParsCSection(const ParsCSection& copy) : ParsCConfig(ParsCConfig::PARSC_SECTION) {
-	_sectionName = 0;
-	copy.copyTo(this);
+ParsCSection::~ParsCSection() {}
+
+void ParsCSection::setSectionName(const char* sectionName) {
+	_sectionName = sectionName;
 }
 
-ParsCSection& ParsCSection::operator=(const ParsCSection& base) {
-	clearThis();
-	base.copyTo(this);
-	return *this;
+const char* ParsCSection::getSectionName() const {
+	return _sectionName;
 }
 
-const char* ParsCSection::getText() const {
-	const ParsCConfig* node = this->sectionName();
-	return 0;
+void ParsCSection::print(FILE* file, int depth, std::string str) const {
+	assert(file);
+
+	for (int i = 0; i < depth; i++) {
+		fprintf(file, "    ");
+	}
+
+	fprintf(file, "#[%s]");
 }
 
 ParsCConfig* ParsCSection::clone() const {
-	ParsCConfig* c = new ParsCConfig();
-
-	if (!c)
-		return 0;
-
-	copyTo(c);
-	return c;
-}
-
-void ParsCSection::clearThis() {
-	clear();
-}
-
-void ParsCSection::copyTo(ParsCSection* target) const {
-	ParsCConfig::copyTo(target);
-}
-
-/*
-  ParsCSectionComment
-*/
-
-ParsCSectionComment::ParsCSectionComment() : ParsCConfig(ParsCConfig::PARSC_SECTION_COMMENT) {}
-
-ParsCSectionComment::ParsCSectionComment(const char* value) : ParsCConfig(ParsCConfig::PARSC_SECTION_COMMENT) {
-	setValue(value);
-}
-
-ParsCSectionComment::~ParsCSectionComment() {}
-
-ParsCSectionComment::ParsCSectionComment(const ParsCSectionComment& copy) : ParsCConfig(ParsCConfig::PARSC_SECTION_COMMENT) {
-	copy.copyTo(this);
-}
-
-ParsCSectionComment& ParsCSectionComment::operator=(const ParsCSectionComment& base) {
-	clear();
-	base.copyTo(this);
-	return *this;
-}
-
-ParsCConfig* ParsCSectionComment::clone() const {
 	ParsCSectionComment* c = new ParsCSectionComment();
 
 	if (!c)
@@ -110,14 +60,22 @@ ParsCConfig* ParsCSectionComment::clone() const {
 	return c;
 }
 
-void ParsCSectionComment::print(FILE* file, int depth) const {
-	assert(file);
+void ParsCSection::copyTo(ParsCSection* target) const {
+	ParsCConfig::copyTo(target);
+}
 
-	for (int i = 0; i < depth; i++) {
-		fprintf(file, "    ");
-	}
+ParsCSectionComment::ParsCSectionComment(const char* sectionComment) {
+	_sectionComment = sectionComment ? sectionComment : "";
+}
 
-	fprintf(file, "#[%s]");
+ParsCSectionComment::~ParsCSectionComment() {}
+
+void ParsCSectionComment::setSectionComment(const char* sectionName) {
+	_sectionComment = sectionComment;
+}
+
+const char* ParsCSection::getSectionComment() const {
+	return _sectionComment;
 }
 
 void ParsCSectionComment::copyTo(ParsCSectionComment* target) const {
