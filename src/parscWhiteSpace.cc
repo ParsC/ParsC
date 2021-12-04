@@ -24,19 +24,19 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "parscWhiteSpace.h"
-
-#ifndef INCLUDE_CSTDIO
 #include <cstdio>
-#define INCLUDE_CSTDIO
-#endif
-
-using namespace std;
+#include "parscWhiteSpace.h"
 
 ParsCWhiteSpace::ParsCWhiteSpace(const char* whiteSpace) {
 	_whiteSpace = whiteSpace ? whiteSpace : "";
 }
 
+ParsCWhiteSpace::~ParsCWhiteSpace() {}
+
+void ParsCWhiteSpace::setWhiteSpace(const char* whiteSpace) {
+	_whiteSpace = whiteSpace;
+}
+
 const char* ParsCWhiteSpace::getWhiteSpace() const {
-	return _whiteSpace.c_str();
+	return _whiteSpace;
 }
