@@ -27,23 +27,22 @@
 #ifndef PARSCWHITESPACE_H
 #define PARSCWHITESPACE_H
 
-#include "ParsC.h"
-
-#ifndef INCLUDE_STRING
 #include <string>
-#define INCLUDE_STRING
-#endif
+#include "ParsC.h"
 
 /*
   ParsCWhiteSpace
 
   Indicates any type of interpretation of whitespaces within an INI configuration file.
 */
-class ParsCWhiteSpace : public ParsCData {
-	std::string _whiteSpace;
+class ParsCWhiteSpace {
 public:
-	// Construct a whitespace
+	// Construct a white space
 	ParsCWhiteSpace(const char* whiteSpace);
+	virtual ~ParsCWhiteSpace();
+	void setWhiteSpace(const char* whiteSpace);
 	const char* getWhiteSpace() const;
+protected:
+	const char* _whiteSpace;
 };
 #endif
