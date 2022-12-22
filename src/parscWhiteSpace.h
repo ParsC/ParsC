@@ -37,7 +37,7 @@
 */
 class ParsCWhiteSpace {
 public:
-	// Construct a white space
+	// Construct a whitespace
 	ParsCWhiteSpace(const char* whiteSpace);
 	virtual ~ParsCWhiteSpace();
 	void setWhiteSpace(const char* whiteSpace);
