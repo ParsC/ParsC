@@ -2,7 +2,7 @@
 //
 // parscSection.cc
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,29 +25,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "parscSection.h"
+#include "parscKeyValue.h"
+#include "parscWhiteSpace.h"
 
 ParsCSection::ParsCSection(const char* sectionName) : ParsCConfig(ParsCConfig::PARSC_SECTION) {
 	_sectionName = sectionName ? sectionName : "";
 }
 
-ParsCSection::~ParsCSection() {}
-
-void ParsCSection::setSectionName(const char* sectionName) {
-	_sectionName = sectionName;
+ParsCSection::~ParsCSection() {
+	clearThis();
 }
 
-const char* ParsCSection::getSectionName() const {
-	return _sectionName;
-}
-
-void ParsCSection::print(FILE* file, int depth, std::string str) const {
-	assert(file);
-
-	for (int i = 0; i < depth; i++) {
-		fprintf(file, "    ");
-	}
-
-	fprintf(file, "#[%s]");
+ParsCSection& ParsCSection::operator=(const ParsCSection& base) {
+	clearThis();
+	base.copy(this);
+	return *this;
 }
 
 ParsCConfig* ParsCSection::clone() const {
@@ -60,22 +52,44 @@ ParsCConfig* ParsCSection::clone() const {
 	return c;
 }
 
+void ParsCSection::clearThis() {
+	clear();
+}
+
 void ParsCSection::copyTo(ParsCSection* target) const {
 	ParsCConfig::copyTo(target);
 }
 
-ParsCSectionComment::ParsCSectionComment(const char* sectionComment) {
-	_sectionComment = sectionComment ? sectionComment : "";
+ParsCSectionComment::ParsCSectionComment(const char* sectionComment) : ParsCConfig(ParsCConfig::PARSC_SECTION_COMMENT) {
+	_sectionComment = sectionComment;
 }
 
 ParsCSectionComment::~ParsCSectionComment() {}
 
-void ParsCSectionComment::setSectionComment(const char* sectionName) {
-	_sectionComment = sectionComment;
+ParsCSectionComment& ParsCSectionComment::operator=(const ParsCSectionComment& base) {
+	clear();
+	base.copy(this);
+	return *this;
 }
 
-const char* ParsCSection::getSectionComment() const {
-	return _sectionComment;
+void ParsCSectionComment::print(FILE* file, int depth) const {
+	assert(file);
+
+	for (int i = 0; i < depth; i++) {
+		fprintf(file, "    ");
+	}
+
+	fprintf(file, "#[%s]");
+}
+
+ParsCConfig* ParsCSectionComment::clone() const {
+	ParsCSectionComment* c = new ParsCSectionComment();
+
+	if (!c)
+		return 0;
+
+	copyTo(c);
+	return c;
 }
 
 void ParsCSectionComment::copyTo(ParsCSectionComment* target) const {
