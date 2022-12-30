@@ -2,7 +2,7 @@
 //
 // parscParser.cc
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,10 @@
 #include "parsCParser.h"
 
 ParsCParser::ParsCParser() {
-	_commentCharacter = "#";
-	_delimiter = "=";
 	_error = "";
 	_errorCode = "";
+	_commentCharacter = "#";
+	_delimiter = "=";
 }
 
 ParsCParser::~ParsCParser() {}
@@ -39,8 +39,8 @@ void ParsCParser::setCommentCharacter(char c) {
 	_commentCharacter = c;
 }
 
-void ParsCParser::setDelimiter(char d) {
-	_delimiter = d;
+void ParsCParser::setDelimiter(char c) {
+	_delimiter = c;
 }
 
 const char* ParsCParser::getError() const {
