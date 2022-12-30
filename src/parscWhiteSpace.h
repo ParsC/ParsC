@@ -2,7 +2,7 @@
 //
 // parscWhiteSpace.h
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,11 @@
 #include <string>
 #include "ParsC.h"
 
-/*
-  ParsCWhiteSpace
-
-  Indicates any type of interpretation of whitespaces within an INI configuration file.
-*/
+/**
+ * ParsCWhiteSpace
+ *
+ * Indicates any type of interpretation of whitespaces within an INI configuration file.
+ */
 class ParsCWhiteSpace {
 public:
 	// Construct a whitespace
