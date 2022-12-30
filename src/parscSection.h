@@ -2,7 +2,7 @@
 //
 // parscSection.h
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,42 +33,49 @@
 #include <iostream>
 #include "ParsC.h"
 
-/*
-  ParsCSection
-
-  Parses certain sections included in any current INI configuration file. Sections are
-  elements for INI files that appear in brackets. They indicate what a certain block
-  of keys/properties are for.
-*/
+/**
+ * ParsCSection
+ *
+ * Parses certain sections included in any current INI configuration file. Sections are
+ * elements for INI files that appear in brackets. They indicate what a certain block
+ * of keys/properties are for.
+ */
 class ParsCSection : public ParsCConfig {
 	friend class ParsCKeyValue;
 public:
 	// Construct a section
 	ParsCSection(const char* sectionName);
 	virtual ~ParsCSection();
-	void setSectionName(const char* sectionName);
-	const char* getSectionName() const;
-	virtual void print(FILE* file, int depth) const {
-		print(file, depth, 0);
+	void setSectionName(const char* sectionName) {
+		_sectionName = sectionName;
 	}
-	void print(FILE* file, int depth, std::string str) const;
+	const char* getSectionName() const {
+		return _sectionName;
+	}
 	virtual ParsCConfig* clone() const;
 protected:
+	void clearThis();
 	void copyTo(ParsCSection* target) const;
 	const char* _sectionName;
 };
 
-/*
-  ParsCSectionComment
-
-  Indicates a comment within any section in the current INI file.
-*/
+/**
+ * ParsCSectionComment
+ *
+ * Indicates a comment within any section in the current INI file.
+ */
 class ParsCSectionComment : public ParsCConfig {
 public:
+	// Construct an empty comment
 	ParsCSectionComment(const char* sectionComment);
 	virtual ~ParsCSectionComment();
 	void setSectionComment(const char* sectionComment);
-	const char* getSectionComment() const;
+	const char* getSectionComment();
+	virtual void print(FILE* file, int depth) const {
+		print(file, depth = 0);
+	}
+	void print(FILE* file, int depth) const;
+	virtual ParsCConfig* clone() const;
 protected:
 	void copyTo(ParsCSectionComment* target) const;
 	const char* _sectionComment;
