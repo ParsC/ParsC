@@ -2,7 +2,7 @@
 //
 // parscParser.h
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,11 @@
 #include <string>
 #include <iostream>
 
-/*
-  ParsCParser
-
-  The secondary class for most functions in the ParsC INI configuration file parser.
-*/
+/**
+ * ParsCParser
+ *
+ * The secondary class for most functions in the ParsC INI configuration file parser.
+ */
 class ParsCParser {
 	std::string _error;
 	std::string _errorCode;
@@ -43,7 +43,7 @@ public:
 	ParsCParser();
 	virtual ~ParsCParser();
 	void setCommentCharacter(char c);
-	void setDelimiter(char d);
+	void setDelimiter(char c);
 	const char* getError() const;
 	const char* getErrorCode() const;
 protected:
