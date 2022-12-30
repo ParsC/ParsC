@@ -2,7 +2,7 @@
 //
 // parscConfigFile.h
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,12 +32,12 @@
 #include <map>
 #include "ParsC.h"
 
-/*
-  ParsCConfigFile
-
-  Indicates any current INI configuration file. This is what binds everything together
-  to create a so called INI file. It can be saved and loaded.
-*/
+/**
+ * ParsCConfigFile
+ *
+ * Indicates any current INI configuration file. This is what binds everything together
+ * to create a so called INI file. It can be saved and loaded.
+ */
 class ParsCConfigFile : public ParsCConfig {
 public:
 	// Create an empty INI file with no name
