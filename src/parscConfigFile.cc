@@ -2,7 +2,7 @@
 //
 // parscConfigFile.cc
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ ParsCConfigFile::ParsCConfigFile(const ParsCConfigFile& copy) {
 	copy.copyTo(this);
 }
 
-ParsCConfigFile& ParsCConfigFile::operator = (const ParsCConfigFile& copy) {
+ParsCConfigFile& ParsCConfigFile::operator=(const ParsCConfigFile& copy) {
 	clear();
 	copy.copyTo(this);
 	return *this;
