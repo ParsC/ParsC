@@ -82,7 +82,7 @@ public:
 	const char* sectionValue() const {
 		return _section.c_str();
 	}
-	const ParsCConfig* sectionName(const char* value) const;
+	const ParsCConfig* sectionName(const char* name) const;
 	ParsCConfig* sectionName() {
 		return _sectionName;
 	}
