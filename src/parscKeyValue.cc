@@ -2,7 +2,7 @@
 //
 // parscKeyValue.cc
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,6 @@
 #include <cstdio>
 #include "ParsCKeyValue.h"
 
-ParsCKeyValue::ParsCKeyValue() {
-	_name = "";
-	_value = "";
-}
-
 ParsCKeyValue::ParsCKeyValue(const char* name, const char* value) {
 	if (name) {
 		ParsCConfig(ParsCConfig::PARSC_NAME);
@@ -41,27 +36,20 @@ ParsCKeyValue::ParsCKeyValue(const char* name, const char* value) {
 		ParsCConfig(ParsCConfig::PARSC_VALUE);
 	}
 
-	_name = name ? name : "";
-	_value = value ? value : "";
+	_name = name;
+	_value = value;
+	_configFile = 0;
 	_previous = _next = 0;
 }
 
-ParsCKeyValue::~ParsCKeyValue() {}
-
-void ParsCKeyValue::setName(const char* name) {
-	_name = name;
+ParsCKeyValue::~ParsCKeyValue() {
+	clearThis();
 }
 
-const char* ParsCKeyValue::getName() const {
-	return _name;
-}
-
-void ParsCKeyValue::setValue(const char* value) {
-	_value = value;
-}
-
-const char* ParsCKeyValue::getName() const {
-	return _value;
+ParsCKeyValue& ParsCKeyValue::operator=(const ParsCKeyValue& base) {
+	clearThis();
+	base.copyTo(this);
+	return *this;
 }
 
 void ParsCKeyValue::print(FILE* file, int depth, std::string str) const {
@@ -76,9 +64,23 @@ void ParsCKeyValue::print(FILE* file, int depth, std::string str) const {
 			(*str) += name;
 			(*str) += "=\"";
 			(*str) += value;
-			(*str) += "\"";
+			(*str) += "\""
 		}
 	}
+}
+
+ParsCConfig* ParsCKeyValue::clone() const {
+	ParsCKeyValue* c = new ParsCKeyValue();
+
+	if (!c)
+		return 0;
+
+	copyTo(c);
+	return c;
+}
+
+void ParsCKeyValue::clearThis() {
+	clear();
 }
 
 void ParsCKeyValue::copyTo(ParsCSection* target) const {
