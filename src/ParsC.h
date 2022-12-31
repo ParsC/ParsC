@@ -2,7 +2,7 @@
 //
 // ParsC.h
 //
-// Copyright (c) 2019-2021 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -41,12 +41,12 @@
 #pragma warning(disable : 4786)
 #endif
 
-/*
-  ParsCConfig
-
-  The parent class for most functions in ParsC. This is what holds all of the elements
-  included in INI configuration files in general.
-*/
+/**
+ * ParsCConfig
+ *
+ * The parent class for most functions in ParsC. This is what holds all of the elements
+ * included in INI configuration files in general.
+ */
 class ParsCConfig {
 	friend class ParsCConfigFile;
 	friend class ParsCKeyValue;
@@ -60,7 +60,7 @@ public:
 		PARSC_SECTION_COMMENT
 	};
 
-	ParsCConfig();
+	ParsCConfig(ConfigType type);
 	virtual ~ParsCConfig();
 	void clear();
 	void setValue(const char* value) {
@@ -75,24 +75,26 @@ public:
 	void* getUserData() const {
 		return _userData;
 	}
-	ParsCConfig* sectionName() {
-		return _sectionName;
+	const char* keyValue() const {
+		return _value.c_str();
 	}
-	const ParsCConfig* sectionName() const {
-		return _sectionName;
+	const ParsCConfig* keyName(const char* value) const;
+	const char* sectionValue() const {
+		return _section.c_str();
 	}
 	const ParsCConfig* sectionName(const char* value) const;
-	ParsCConfig* sectionName(const char* value) {
-		return const_cast<ParsCConfig*>((const_cast<const ParsCConfig*>(this))->sectionName(value));
+	ParsCConfig* sectionName() {
+		return _sectionName;
 	}
 private:
 	ParsCConfig(const ParsCConfig&);
 	void operator=(const ParsCConfig& base);
 protected:
-	ParsCConfig(ConfigType type);
 	void copyTo(ParsCConfig* target) const;
 	const char* _value;
+	const char* _section;
 	ConfigType* _type;
+	ParsCConfig* _keyName;
 	ParsCConfig* _sectionName;
 	ParsCConfig* _previous;
 	ParsCConfig* _next;
