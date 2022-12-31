@@ -2,7 +2,7 @@
 //
 // ParsC.cc
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,6 @@
 #include "ParsC.h"
 
 bool ParsCConfig::_condensedWhiteSpace = true;
-
-ParsCConfig::ParsCConfig() {}
 
 ParsCConfig::ParsCConfig(ConfigType type) {
 	_type = type;
@@ -61,7 +59,29 @@ void ParsCConfig::clear() {
 	_sectionName = 0;
 }
 
+const ParsCConfig* ParsCConfig::keyName(const char* value) const {
+	const ParsCConfig* name;
+
+	for (name = _keyName; name; name = name->_next) {
+		if (strcmp(name->keyValue(), value) == 0)
+			return name;
+	}
+
+	return name;
+}
+
+const ParsCConfig* ParsCConfig::sectionName(const char* name) const {
+	const ParsCConfig* section;
+
+	for (section = _sectionName; section; section = section->_next) {
+		if (strcmp(section->sectionValue(), name) == 0)
+			return section;
+	}
+
+	return section;
+}
+
 void ParsCConfig::copyTo(ParsCConfig* target) const {
-	target->setValue(_value);
+	target->setValue(_value.c_str());
 	target->_userData = _userData;
 }
