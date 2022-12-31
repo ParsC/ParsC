@@ -2,7 +2,7 @@
 //
 // parscKeyValue.h
 //
-// Copyright (c) 2019-2020 Jon Wyble
+// Copyright (c) 2019-2022 Jon Wyble
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,37 +31,46 @@
 #include <iostream>
 #include "ParsC.h"
 
-/*
-  ParsCKeyValue
-
-  Indicates both names and values within any current INI configuration file, included
-  in what is called a key or property. A name is a character which appears before the
-  equals sign (delimiter), and the value follows. You can add quotation marks to any
-  value if need be.
-
-  Examples: Name=Value or Name="Value"
-*/
+/**
+ * ParsCKeyValue
+ *
+ * Indicates both names and values within any current INI configuration file, included
+ * in what is called a key or property. A name is a character which appears before the
+ * equals sign (delimiter), and the value follows. You can add quotation marks to any
+ * value if need be.
+ *
+ * Examples: Name=Value or Name="Value"
+ */
 class ParsCKeyValue : public ParsCConfig {
 	friend class ParsCSection;
 public:
 	// Construct a name or value
-	ParsCKeyValue();
 	ParsCKeyValue(const char* name, const char* value);
 	virtual ~ParsCKeyValue();
-	void setName(const char* name);
-	const char* getName() const;
-	void setValue(const char* value);
-	const char* getValue() const;
+	ParsCKeyValue* setName(const char* name) {
+		_name = name;
+	}
+	const char* getName() const {
+		return _name.c_str();
+	}
+	ParsCKeyValue* setValue(const char* value) const {
+		_value = value;
+	}
+	const char* getValue() const {
+		return _value.c_str();
+	}
 	virtual void print(FILE* file, int depth) const {
 		print(file, depth, 0);
 	}
-	void print(FILE* file, int depth, std::string str) const;
+	void print(FILE* file, int depth, std::string* str) const;
+	virtual ParsCConfig* clone() const;
 private:
-	const char* _name;
-	const char* _value;
+	std::string _name;
+	std::string _value;
 	ParsCKeyValue* _previous;
 	ParsCKeyValue* _next;
 protected:
+	void clearThis();
 	void copyTo(ParsCSection* target) const;
 };
 #endif
